@@ -2,7 +2,7 @@
 #include <string>
 using namespace std;
 
-#include "hashing.h"
+#include "../hashing.h"
 
 // Punkt im zweidimensionalen Raum.
 struct Point {
