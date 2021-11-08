@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/mnt/c/Users/Florian Merlau/CLionProjects/Aglo2_U1/hashing.h
+
+/mnt/c/Users/Florian Merlau/CLionProjects/Aglo2_U1/main.cpp
+iostream
+-
+string
+-
+hashing.h
+/mnt/c/Users/Florian Merlau/CLionProjects/Aglo2_U1/hashing.h
+
