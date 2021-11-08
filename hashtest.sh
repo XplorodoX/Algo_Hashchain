@@ -1,4 +1,4 @@
-g++ -o hashtest hashtest.cpp
+g++ -o hashtest main.cpp
 
 for x in c l q d; do
     echo $x
