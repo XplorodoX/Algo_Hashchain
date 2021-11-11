@@ -254,7 +254,7 @@ struct HashOpen {
         if (i == 0) {
             return false;
         }
-        if (tab[i].kind == Empty) {
+        if (tab[i].kind ==  Empty || tab[i].kind == Regular) {
             tab[i].key = k;
             tab[i].val = v;
             tab[i].kind = Regular;
