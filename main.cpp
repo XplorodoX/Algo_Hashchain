@@ -67,10 +67,18 @@ template <typename H>
 void test (H tab, bool prompt) {
     //tab und put mit LinProb nutzen
     string name;
-    tab.put(Point(3, 3), "null");
-    tab.put(Point(5, 1), "eins");
-    tab.put(Point(2, 3), "zwei");
-    tab.put(Point(6, 0), "drei");
+    tab.put(Point(4, 4), "null");
+    tab.put(Point(5, 3), "eins");
+    tab.put(Point(0, 8), "zwei");
+    tab.put(Point(8, 0), "drei");
+    tab.put(Point(3, 5), "vier");
+    tab.put(Point(7, 1), "fuenf");
+    tab.put(Point(1, 7), "sechs");
+    tab.put(Point(6, 2), "sieben");
+    tab.remove(Point(5, 3));
+    tab.put(Point(2, 6), "acht");
+    tab.remove(Point(0, 8));
+    tab.put(Point(4, 0), "neun");
     tab.dump();
 }
 

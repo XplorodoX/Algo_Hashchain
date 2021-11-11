@@ -243,13 +243,10 @@ struct HashOpen {
         if (i == -1) {
             return false;
         }
-        if (tab[i].kind ==  Empty || tab[i].kind == Regular) {
-            tab[i].key = k;
-            tab[i].val = v;
-            tab[i].kind = Regular;
-            return true;
-        }
-        return false;
+        tab[i].key = k;
+        tab[i].val = v;
+        tab[i].kind = Regular;
+        return true;
     }
 
     // Führe die obige Hilfsoperation aus.
