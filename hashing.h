@@ -86,7 +86,7 @@ struct HashChain {
     }
 
 
-        // Inhalt der Tabelle zu Testzwecken ausgeben:
+    // Inhalt der Tabelle zu Testzwecken ausgeben:
     // Pro Eintrag eine Zeile bestehend aus der Nummer des Platzes,
     // Schlüssel und Wert, jeweils getrennt durch genau ein Leerzeichen.
     // Dieses Ausgabeformat muss exakt eingehalten werden.
@@ -211,30 +211,19 @@ struct HashOpen {
         }
     }
 
-
-    //Berechne den Index i = sj (k ).
-    // Wenn tab[i] leer ist, liefere „nicht vorhanden“ und entweder den gemerkten
-    //Index (falls es bereits einen gibt) oder (andernfalls) den Index i zurück.
-    // Wenn tab[i] eine Löschmarkierung (siehe unten) enthält
-    //und bis jetzt noch kein Index gemerkt wurde,
-    // merke den Index i.
-    // Wenn tab[i] ein Objekt (k ¢, v ¢) mit k ¢ = k und irgendein
-    //Wenn während der Schleife ein Index gemerkt wurde,
-    //liefere „nicht vorhanden“ und diesen Index zurück.
-    // Andernfalls liefere „Tabelle voll“ zurück.
-
-    uint Hilfsoperation(K k) {
-        uint index = 0;
+    int Hilfsoperation(K k) {
+        uint index = -1;
         S s(k, size);
         uint i = s.next();
+
         for (int j = 0; j < size; ++j) {
             if (tab[i].kind == Empty) {
-                if (index > 0) {
+                if (index > -1) {
                     return index;
                 }
                 return i;
             } else if (tab[i].kind == delted) {
-                if (index == 0) {
+                if (index == -1) {
                     index = i;
                 }
             } else if (tab[i].key == k) {
@@ -251,7 +240,7 @@ struct HashOpen {
 
     bool put(K k, V v){
         uint i = Hilfsoperation(k);
-        if (i == 0) {
+        if (i == -1) {
             return false;
         }
         if (tab[i].kind ==  Empty || tab[i].kind == Regular) {
@@ -269,7 +258,7 @@ struct HashOpen {
     // Ander nfalls liefere ^.
     bool get(K k, V& v){
         uint i = Hilfsoperation(k);
-        if (i == 0) {
+        if (i == -1) {
             return false;
         }
         if (tab[i].kind == Regular) {
@@ -284,8 +273,8 @@ struct HashOpen {
     // schreibe eine Löschmarkierung in tab[i].
 
     bool remove(K k){
-        uint i = Hilfsoperation(k);
-        if (i == 0) {
+        int i = Hilfsoperation(k);
+        if (i == -1) {
             return false;
         }
         if (tab[i].kind == Regular) {

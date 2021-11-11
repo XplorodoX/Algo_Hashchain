@@ -86,7 +86,7 @@ struct HashChain {
     }
 
 
-        // Inhalt der Tabelle zu Testzwecken ausgeben:
+    // Inhalt der Tabelle zu Testzwecken ausgeben:
     // Pro Eintrag eine Zeile bestehend aus der Nummer des Platzes,
     // Schlüssel und Wert, jeweils getrennt durch genau ein Leerzeichen.
     // Dieses Ausgabeformat muss exakt eingehalten werden.

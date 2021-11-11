@@ -67,11 +67,11 @@ template <typename H>
 void test (H tab, bool prompt) {
     //tab und put mit LinProb nutzen
     string name;
-    tab.put(Point(1, 3), "null");
-    tab.put(Point(1, 3), "eins");
-    tab.remove(Point(1, 1));
+    tab.put(Point(3, 3), "null");
+    tab.put(Point(5, 1), "eins");
+    tab.put(Point(2, 3), "zwei");
+    tab.put(Point(6, 0), "drei");
     tab.dump();
-
 }
 
 // Hauptprogramm.
@@ -82,5 +82,5 @@ void test (H tab, bool prompt) {
 // (quiet, d. h. keine Eingabeaufforderung).
 int main (int argc, char* argv []) {
     //test funktion Hashopen und LinProb nutzen
-    test(HashOpen<Point, string, DblHash<Point>>(8), true);
+    test(HashOpen<Point, string, QuadProb<Point>>(8), true);
 }
