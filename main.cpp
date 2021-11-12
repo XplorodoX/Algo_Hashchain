@@ -83,5 +83,5 @@ void test (H tab, bool prompt) {
 // (quiet, d. h. keine Eingabeaufforderung).
 int main (int argc, char* argv []) {
     //test funktion Hashopen und LinProb nutzen
-    test(HashOpen<Point, string, LinProb<Point>>(10), true);
+    test(HashOpen<Point, string, QuadProb<Point>>(10), true);
 }

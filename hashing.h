@@ -152,8 +152,8 @@ struct QuadProb {
     //Quadratische Sonierung
     uint next (){
         s = hashval(key) % size;
-        s = (s + j) % size;
-        j = (j + 1) % size;
+        s = (s + (j + j * j / 2)) % size;
+        j++;
         return s;
     }
 };
