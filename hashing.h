@@ -251,10 +251,14 @@ struct HashOpen {
 
     bool put(K k, V v){
         uint i = Hilfsoperation(k);
-        tab[i].key = k;
-        tab[i].val = v;
-        tab[i].kind = Regular;
-        return true;
+        if (tab[i].kind != Regular || tab[i].key == k){
+            tab[i].key = k;
+            tab[i].val = v;
+            tab[i].kind = Regular;
+            return true;
+        }
+        return false;
+
     }
 
     // Führe die obige Hilfsoperation aus.
