@@ -114,8 +114,7 @@ struct LinProb {
     LinProb (K k, uint n) {
         key = k;
         size = n;
-        s = hashval(key) % size;
-        j = size;
+        j = 0;
     }
     // Den ersten bzw. nächsten Wert der Sequenz liefern.
     // Nach einem Aufruf des Konstruktors darf diese Funktion also
@@ -132,6 +131,7 @@ struct LinProb {
     // Dann kann bei realistischen Tabellengrößen n kein Überlauf
     // auftreten.
     uint next (){
+        s = hashval(key) % size;
         s = (s + j) % size;
         j++;
         return s;
@@ -147,11 +147,11 @@ struct QuadProb {
     QuadProb (K k, uint n){
         key = k;
         size = n;
-        s = hashval(key) % size;
-        j = size;
+        j = 0;
     }
     //Quadratische Sonierung
     uint next (){
+        s = hashval(key) % size;
         s = (s + j) % size;
         j = (j + 1) % size;
         return s;
@@ -171,10 +171,10 @@ struct DblHash {
     DblHash (K k, uint n){
         key = k;
         size = n;
-        s = hashval(key) % size;
-        j = size;
+        j = 0;
     }
     uint next (){
+        s = hashval(key) % size;
         s = (s + hashval2(key, size) * j) % size;
         j++;
         return s;
@@ -211,19 +211,30 @@ struct HashOpen {
         }
     }
 
-    int Hilfsoperation(K k) {
-        uint index = -1;
+
+    //Berechne den Index i = sj (k ).
+    // Wenn tab[i] leer ist, liefere „nicht vorhanden“ und entweder den gemerkten
+    //Index (falls es bereits einen gibt) oder (andernfalls) den Index i zurück.
+    // Wenn tab[i] eine Löschmarkierung (siehe unten) enthält
+    //und bis jetzt noch kein Index gemerkt wurde,
+    // merke den Index i.
+    // Wenn tab[i] ein Objekt (k ¢, v ¢) mit k ¢ = k und irgendein
+    //Wenn während der Schleife ein Index gemerkt wurde,
+    //liefere „nicht vorhanden“ und diesen Index zurück.
+    // Andernfalls liefere „Tabelle voll“ zurück.
+
+    uint Hilfsoperation(K k) {
+        uint index = 0;
         S s(k, size);
         uint i = s.next();
-
         for (int j = 0; j < size; ++j) {
             if (tab[i].kind == Empty) {
-                if (index > -1) {
+                if (index > 0) {
                     return index;
                 }
                 return i;
             } else if (tab[i].kind == delted) {
-                if (index == -1) {
+                if (index == 0) {
                     index = i;
                 }
             } else if (tab[i].key == k) {
@@ -240,9 +251,6 @@ struct HashOpen {
 
     bool put(K k, V v){
         uint i = Hilfsoperation(k);
-        if (i == -1) {
-            return false;
-        }
         tab[i].key = k;
         tab[i].val = v;
         tab[i].kind = Regular;
@@ -255,14 +263,8 @@ struct HashOpen {
     // Ander nfalls liefere ^.
     bool get(K k, V& v){
         uint i = Hilfsoperation(k);
-        if (i == -1) {
-            return false;
-        }
-        if (tab[i].kind == Regular) {
-            v = tab[i].val;
-            return true;
-        }
-        return false;
+        v = tab[i].val;
+        return true;
     }
 
     //Führe die obige Hilfsoperation aus.
@@ -270,10 +272,7 @@ struct HashOpen {
     // schreibe eine Löschmarkierung in tab[i].
 
     bool remove(K k){
-        int i = Hilfsoperation(k);
-        if (i == -1) {
-            return false;
-        }
+        uint i = Hilfsoperation(k);
         if (tab[i].kind == Regular) {
             tab[i].kind = delted;
             return true;
