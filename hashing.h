@@ -211,18 +211,6 @@ struct HashOpen {
         }
     }
 
-
-    //Berechne den Index i = sj (k ).
-    // Wenn tab[i] leer ist, liefere „nicht vorhanden“ und entweder den gemerkten
-    //Index (falls es bereits einen gibt) oder (andernfalls) den Index i zurück.
-    // Wenn tab[i] eine Löschmarkierung (siehe unten) enthält
-    //und bis jetzt noch kein Index gemerkt wurde,
-    // merke den Index i.
-    // Wenn tab[i] ein Objekt (k ¢, v ¢) mit k ¢ = k und irgendein
-    //Wenn während der Schleife ein Index gemerkt wurde,
-    //liefere „nicht vorhanden“ und diesen Index zurück.
-    // Andernfalls liefere „Tabelle voll“ zurück.
-
     uint Hilfsoperation(K k) {
         uint index = 0;
         S s(k, size);
@@ -245,9 +233,6 @@ struct HashOpen {
         return index;
     }
 
-    //Führe die obige Hilfsoperation aus.
-    //Wenn sie einen Index i zurückliefer t, speichere das Objekt (k , v ) in tab[i ].
-    //Ander nfalls signalisiere einen Fehler (Tabelle voll).
 
     bool put(K k, V v){
         uint i = Hilfsoperation(k);
@@ -261,19 +246,14 @@ struct HashOpen {
 
     }
 
-    // Führe die obige Hilfsoperation aus.
-    // Wenn sie „vorhanden“ und einen Index i zurückliefer t,
-    // liefere den Wer t v ¢ des in tab[i ] gespeicher ten Objekts (k ¢, v ¢) zurück.
-    // Ander nfalls liefere ^.
     bool get(K k, V& v){
         uint i = Hilfsoperation(k);
-        v = tab[i].val;
-        return true;
+        if (tab[i].kind == Regular && tab[i].key == k) {
+            v = tab[i].val;
+            return true;
+        }
+        return false;
     }
-
-    //Führe die obige Hilfsoperation aus.
-    // Wenn sie „vorhanden“ und einen Index i zurückliefert,
-    // schreibe eine Löschmarkierung in tab[i].
 
     bool remove(K k){
         uint i = Hilfsoperation(k);
@@ -284,13 +264,6 @@ struct HashOpen {
         return false;
     }
 
-    // Inhalt der Tabelle zu Testzwecken ausgeben:
-    // Pro Eintrag eine Zeile bestehend aus der Nummer des Platzes,
-    // Schlüssel und Wert, jeweils getrennt durch genau ein Leerzeichen.
-    // Dieses Ausgabeformat muss exakt eingehalten werden.
-    // Leere Plätze werden nicht ausgegeben.
-    // Bei Verwendung von dump muss es passende Ausgabeoperatoren (<<)
-    // für die Typen K und V geben.
     void dump (){
         for (uint i = 0; i < size; i++) {
             if (tab[i].kind == Regular) {
