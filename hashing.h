@@ -1,5 +1,5 @@
 /**
-*Copyright 2021 Florian Merlau, Christian Bylsch, Sven Knödler, Gianni Balbo
+*Copyright 2021 Florian Merlau, Christian Bayerle, Sven Knödler, Gianni Balbo
 */
 
 // Vorzeichenlose ganze Zahl.
