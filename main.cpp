@@ -68,9 +68,12 @@ void test (H tab, bool prompt) {
     //tab und put mit LinProb nutzen
     string name;
     tab.put(Point(3,3), "Null");
-    tab.put(Point(5,1), "eins");
-    tab.put(Point(4, 2), "zwei");
-
+    tab.put(Point(1,5), "eins");
+    tab.put(Point(5, 1), "zwei");
+    tab.put(Point(4, 2), "drei");
+    tab.put(Point(2, 4), "vier");
+    tab.put(Point(6, 0), "fuenf");
+    tab.put(Point(0, 6), "sechs");
 
     tab.dump();
 }
@@ -83,5 +86,5 @@ void test (H tab, bool prompt) {
 // (quiet, d. h. keine Eingabeaufforderung).
 int main (int argc, char* argv []) {
     //test funktion Hashopen und LinProb nutzen
-    test(HashOpen<Point, string, QuadProb<Point>>(10), true);
+    test(HashOpen<Point, string, QuadProb<Point>>(8), true);
 }
